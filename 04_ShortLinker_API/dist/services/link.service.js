@@ -20,6 +20,10 @@ class LinkService {
         return __awaiter(this, void 0, void 0, function* () {
             const randomString = crypto_1.default.randomBytes(4).toString('hex');
             const shortedLink = reqLink + '/' + randomString;
+            const existsLink = yield link_1.default.findOne({ originalUrl: link });
+            if (existsLink) {
+                return existsLink;
+            }
             const createdLink = yield link_1.default.create({ originalUrl: link, shortedUrl: shortedLink });
             return createdLink;
         });

@@ -9,6 +9,11 @@ class LinkService {
 
         const shortedLink = reqLink + '/' + randomString;
 
+        const existsLink = await Link.findOne({originalUrl: link});
+        if(existsLink) {
+            return existsLink;
+        }
+
         const createdLink = await Link.create({originalUrl: link, shortedUrl: shortedLink});
 
         return createdLink;
